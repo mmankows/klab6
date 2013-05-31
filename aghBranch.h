@@ -1,6 +1,11 @@
 #ifndef AGHBRANCH_H
 	#define AGHBRANCH_H
 
+	//!!!!!!
+	#include <iostream>
+	#include <stdlib.h>
+	//!!!!!!
+
 template<typename TYPE>
 class aghBranch {
 
@@ -10,6 +15,9 @@ aghBranch<TYPE> *right, *left;
 
 
 	public:
+aghBranch<TYPE>() : data(0), right(NULL), left(NULL) {}
+~aghBranch<TYPE>() { right = NULL; left = NULL; }
+
 TYPE& get_data(void) {return data;}
 void set_data(TYPE _newdata) { this->data = _newdata; }
 
