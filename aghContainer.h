@@ -50,6 +50,12 @@ bool aghContainer<TYPE>::replace(int pos, TYPE const& pattern)
 	delete ptr;
 	ptr = NULL;
 	return  insert(pos, pattern);	//wstawienie nowej wartosci
+	//!!!!!!! zmiana, prawdopodobnie tak bedzie dzialac dla drzewa !!!!!!//
+	/* wersja uniwersalna
+	val = at(i);
+	remove(i);
+	insert(i,val);
+	*/
 }
 	
 //----------------------------------------------------------------------
