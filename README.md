@@ -3,7 +3,7 @@ klab6
 
 Drzewo BST
 
-
+maniek - insert, remove
 =====
 Zalozenia:
 
