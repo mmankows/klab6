@@ -11,15 +11,17 @@ class aghBranch {
 
 	protected:
 TYPE data;
-aghBranch<TYPE> *right, *left;	
+aghBranch<TYPE> *right, *left,*parent;	
 
 
 	public:
 aghBranch<TYPE>() : data(0), right(NULL), left(NULL) {}
 ~aghBranch<TYPE>() { right = NULL; left = NULL; }
 
+
 TYPE& get_data(void) {return data;}
 void set_data(TYPE _newdata) { this->data = _newdata; }
+
 
 aghBranch<TYPE>* get_next(char c) { 
 if(c=='l') return left;
