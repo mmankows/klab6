@@ -12,8 +12,11 @@ class aghTree : public aghContainer<TYPE> {
  */  
 
 	private:
+
+aghBranch<TYPE>* go2pos(int i); //< funkcja zwracajaca wezel na danej pozycji
 int tree_size;   //< wielkosc drzewa
 TYPE* root; //< wskaznik na wezel - korzen
+
 
 /**
  * \brief metoda przeszukujaca drzewo az do znalezienia szukanego indexu
@@ -84,6 +87,49 @@ bool remove(int _index);
 
 };
 
+
+
+template<typename TYPE>
+bool aghTree<TYPE>::remove(int _index)
+{
+aghBranch<TYPE> *pptr, *bptr;
+
+bptr = go2pos(i);
+
+}
+
+//-----------------------------------------------------------
+
+template<typename TYPE>
+bool aghTree<TYPE>::insert(int i, TYPE const &_val)
+{
+
+aghBranch<TYPE>* tptr = this->root;
+char R = 'r', L = 'l';
+
+while(tptr!=NULL)
+{
+if(val >= tptr->get_data() )
+    tptr=tptr->get_next(R);
+else
+    tptr=tptr->get_next(L);
+}
+
+tptr= new aghBranch<TYPE>();
+tptr->set_data(_val);
+return true;
+}
+
+
+
+/*
+template<typename TYPE>
+TYPE& aghTree<TYPE>::at(int i)
+{
+if(i<0 || i> this->size() ) throw -1;
+
+return go2pos(i)->get_data();
+}*/
 
 template <typename TYPE>
 aghTree<TYPE>& aghTree<TYPE>::operator=(const aghTree<TYPE>& pattern)

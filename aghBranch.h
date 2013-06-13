@@ -11,11 +11,11 @@ class aghBranch {
 
 	protected:
 TYPE data;
-aghBranch<TYPE> *right, *left,*parent;	
+aghBranch<TYPE> *right, *left;	
 
 
 	public:
-aghBranch<TYPE>() : data(0), right(NULL), left(NULL) {}
+aghBranch<TYPE>() :  right(NULL), left(NULL) {}
 ~aghBranch<TYPE>() { right = NULL; left = NULL; }
 
 
