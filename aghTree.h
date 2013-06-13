@@ -13,7 +13,8 @@ class aghTree : public aghContainer<TYPE> {
 
 	private:
 
-aghBranch<TYPE>* go2pos(int i); //< funkcja zwracajaca wezel na danej pozycji
+aghBranch<TYPE>* go2pos(int i); //< funkcja zwracajaca wezel na danej pozycjii
+//niech bedzie lvr
 int tree_size;   //< wielkosc drzewa
 TYPE* root; //< wskaznik na wezel - korzen
 
@@ -92,9 +93,27 @@ bool remove(int _index);
 template<typename TYPE>
 bool aghTree<TYPE>::remove(int _index)
 {
+char L = 'l', R='r';
+
 aghBranch<TYPE> *pptr, *bptr;
 
-bptr = go2pos(i);
+bptr = go2pos(_index);
+
+if(bptr->get_next(L) == NULL && bptr->get_next(R) == NULL)
+{ //jesli nie ma synow, wczesniejszy ustaw na null(lewy bo LVR)
+ 
+
+   go2pos(_index-1)->set_next(L,NULL);
+   delete bptr;
+}
+else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
+{
+    
+    
+
+}    
+
+
 
 }
 
@@ -109,7 +128,7 @@ char R = 'r', L = 'l';
 
 while(tptr!=NULL)
 {
-if(val >= tptr->get_data() )
+if(_val >= tptr->get_data() )
     tptr=tptr->get_next(R);
 else
     tptr=tptr->get_next(L);
