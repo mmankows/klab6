@@ -94,10 +94,12 @@ bool remove(int _index);
 
 template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::go2pos(int _index, aghBranch<TYPE> *_ptr ) const
-{
+{//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
+
 static int  current;
 std::cout<<"g2p "<<current<<" \n";
-
+if(_ptr==root) current = 0; //zerowanie pola statyczngo,dla kazdego
+                            //jawnegego uruchomienia funkcji przez usera
 
 if(current == _index) return _ptr;
 else
@@ -119,7 +121,7 @@ else
         return _ptr;
 }
 
-current = 0;
+
 return _ptr;
 }
 
@@ -160,21 +162,36 @@ else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
 template<typename TYPE>
 bool aghTree<TYPE>::insert(int i, TYPE const &_val)
 {
-aghBranch<TYPE>* tptr = this->root;
-char R = 'r', L = 'l';
+aghBranch<TYPE>* tptr=this->root;
+char S;
+this->tree_size++;
 
-while(tptr!=NULL)
-{
-if(_val >= tptr->get_data() )
-    tptr=tptr->get_next(R);
+if(root!=NULL) 
+    {
+    if(_val>= root->get_data()) S='r';
+    else S='l';
+    }
 else
-    tptr=tptr->get_next(L);
+{
+root=new aghBranch<TYPE>;
+root->set_data(_val);
+return true;
 }
 
-std::cout<<"nowy obiekt!";
-tptr= new aghBranch<TYPE>();
-tptr->set_data(_val);
-this->tree_size++;
+while(tptr->get_next(S) != NULL)
+{
+if(_val >= tptr->get_data() && tptr->get_next('r')!=NULL )
+    S='r';
+else if(_val < tptr->get_data() && tptr->get_next('l')!=NULL)
+    S='l';
+
+tptr=tptr->get_next(S);
+}
+
+
+tptr->set_next(S, new aghBranch<TYPE>() );
+tptr->get_next(S)->set_data(_val);
+
 return true;
 }
 
