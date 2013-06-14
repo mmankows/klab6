@@ -13,10 +13,12 @@ class aghTree : public aghContainer<TYPE> {
 
 	private:
 
-aghBranch<TYPE>* go2pos(int i); //< funkcja zwracajaca wezel na danej pozycjii
+aghBranch<TYPE>* go2pos(int i,aghBranch<TYPE>* branch) const; 
+//< funkcja zwracajaca wezel na danej pozycjii
 //niech bedzie lvr
+
 int tree_size;   //< wielkosc drzewa
-TYPE* root; //< wskaznik na wezel - korzen
+aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
 
 /**
@@ -42,10 +44,10 @@ aghTree(const aghContainer<TYPE> &pattern);
 /**
  * \brief destruktor
  */
-~aghTree() { if(!(this->isEmpty()) ) this->clear(); 
+/*~aghTree() { if(!(this->isEmpty()) ) this->clear(); 
 root = NULL; 
 tree_size=0; 
-}
+}*/
 
 
 /**
@@ -90,20 +92,57 @@ bool remove(int _index);
 
 
 
+template <typename TYPE>
+aghBranch<TYPE>* aghTree<TYPE>::go2pos(int _index, aghBranch<TYPE> *_ptr ) const
+{
+static int  current;
+std::cout<<"g2p "<<current<<" \n";
+
+
+if(current == _index) return _ptr;
+else
+{
+    if(_ptr->get_next('l') != NULL) 
+    { //elsify popsuly by!
+    std::cout<<"L!";
+    current++;
+    _ptr=go2pos(_index, _ptr->get_next('l'));
+    }
+    if(_ptr->get_next('r') != NULL)
+    {
+
+    std::cout<<"R!";
+    current++;
+    _ptr=go2pos(_index, _ptr->get_next('r'));
+    }
+    if(_ptr->get_next('r') == NULL && _ptr->get_next('l') == NULL) 
+        return _ptr;
+}
+
+current = 0;
+return _ptr;
+}
+
+
+
+
+//----------------------------------------
+
 template<typename TYPE>
 bool aghTree<TYPE>::remove(int _index)
 {
+    /*
 char L = 'l', R='r';
 
 aghBranch<TYPE> *pptr, *bptr;
 
-bptr = go2pos(_index);
+bptr = go2pos(_index, root);
 
 if(bptr->get_next(L) == NULL && bptr->get_next(R) == NULL)
 { //jesli nie ma synow, wczesniejszy ustaw na null(lewy bo LVR)
  
 
-   go2pos(_index-1)->set_next(L,NULL);
+   go2pos(_index-1,root)->set_next(L,NULL);
    delete bptr;
 }
 else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
@@ -113,8 +152,7 @@ else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
 
 }    
 
-
-
+*/
 }
 
 //-----------------------------------------------------------
@@ -122,7 +160,6 @@ else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
 template<typename TYPE>
 bool aghTree<TYPE>::insert(int i, TYPE const &_val)
 {
-
 aghBranch<TYPE>* tptr = this->root;
 char R = 'r', L = 'l';
 
@@ -134,27 +171,34 @@ else
     tptr=tptr->get_next(L);
 }
 
+std::cout<<"nowy obiekt!";
 tptr= new aghBranch<TYPE>();
 tptr->set_data(_val);
+this->tree_size++;
 return true;
 }
 
 
 
-/*
-template<typename TYPE>
-TYPE& aghTree<TYPE>::at(int i)
-{
-if(i<0 || i> this->size() ) throw -1;
 
-return go2pos(i)->get_data();
-}*/
+template<typename TYPE>
+TYPE& aghTree<TYPE>::at(int i) const
+{
+//if(i>= this->size() || i<0) throw aghException("Wrong index for at()!");
+if(i<0 || i>= this->size() ) throw -1; //tymczasowe
+
+return go2pos(i,root)->get_data();
+}
+
+
 
 template <typename TYPE>
 aghTree<TYPE>& aghTree<TYPE>::operator=(const aghTree<TYPE>& pattern)
 {
-aghContainer<TYPE>::operator=(pattern);
+*this=aghContainer<TYPE>::operator=(pattern);
 return *this;
 }
+
+
 
 #endif

@@ -45,17 +45,10 @@ void aghContainer<TYPE>::append(TYPE const& _value)		//wstawianie wartosci na ko
 template <typename TYPE>
 bool aghContainer<TYPE>::replace(int pos, TYPE const& pattern)
 {
-	if ( pos >= this->size() || pos < 0 ) return false;
-	aghContainer<TYPE> *ptr = & ( at(pos) );	//wskaznik na wartosc do usuniecia
-	delete ptr;
-	ptr = NULL;
-	return  insert(pos, pattern);	//wstawienie nowej wartosci
-	//!!!!!!! zmiana, prawdopodobnie tak bedzie dzialac dla drzewa !!!!!!//
-	/* wersja uniwersalna
-	val = at(i);
-	remove(i);
-	insert(i,val);
-	*/
+    if(pos >= this->size() || pos<0) return false;
+	remove(pos);
+	insert(pos,pattern);	
+    return true;
 }
 	
 //----------------------------------------------------------------------
@@ -124,6 +117,7 @@ bool aghContainer<TYPE>::operator!=(aghContainer<TYPE> const& right) const
 template <typename TYPE>
 TYPE& aghContainer<TYPE>::operator[](int n) const
 {
+  //if(n<0 || n >= this->size()) throw aghException("Wrong index for op[]!")
 	return this->at(n);
 }
 
