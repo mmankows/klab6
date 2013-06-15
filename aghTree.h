@@ -39,12 +39,12 @@ aghTree(void): tree_size(0), root(NULL) {}
 /**
  * \brief konstruktor kopiujacy
  */
-aghTree(const aghContainer<TYPE> &pattern);
+//aghTree(const aghContainer<TYPE> &pattern);
 
 /**
  * \brief destruktor
  */
-~aghTree() { this->clear(); root = NULL; }
+//~aghTree() { this->clear(); root = NULL; }
 
 
 /**
@@ -86,7 +86,13 @@ bool remove(int _index);
 
 
 };
-
+/*
+template <typename TYPE>
+aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
+{
+	*this = pattern;
+}
+*/
 
 
 template <typename TYPE>

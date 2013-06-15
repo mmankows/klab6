@@ -5,8 +5,10 @@
 int main()
 {
 aghBranch<int> a,b,c;
-aghTree<int> tr;
+aghTree<int> tr, tr2;
 aghBranch<int> *root,*ptr;
+
+
 
 a.set_data(100);
 b.set_data(-10);
@@ -19,6 +21,7 @@ tr.append(2); std::cout<<"2\n";
 tr.append(3); std::cout<<"3\n";
 tr.append(1); std::cout<<"1\n";
 tr.append(6); std::cout<<"6\n";
+
 
 std::cout<< tr.at(3) <<"\n";
 std::cout<< tr.at(1) << std::endl;;
@@ -35,7 +38,7 @@ ptr = root->get_next('l');
 std::cout<< root->get_next('r')->get_data();
 ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
-
-
+cout << "KONIEC\n\n\n\n";
+//tr2 = tr; nie dziala
 
 }
