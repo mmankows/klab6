@@ -39,6 +39,6 @@ std::cout<< root->get_next('r')->get_data();
 ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
 cout << "KONIEC\n\n\n\n";
-//tr2 = tr; nie dziala
+//tr2 = tr; 
 
 }

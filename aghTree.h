@@ -13,13 +13,14 @@ class aghTree : public aghContainer<TYPE> {
 
 	private:
 
-aghBranch<TYPE>* go2pos(int i,aghBranch<TYPE>* branch) const; 
-//< funkcja zwracajaca wezel na danej pozycjii
-//niech bedzie lvr
 
 int tree_size;   //< wielkosc drzewa
 aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
+
+aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
+//< funkcja zwracajaca wezel na danej pozycjii
+//niech bedzie lvr
 
 /**
  * \brief metoda przeszukujaca drzewo az do znalezienia szukanego indexu
@@ -39,7 +40,7 @@ aghTree(void): tree_size(0), root(NULL) {}
 /**
  * \brief konstruktor kopiujacy
  */
-//aghTree(const aghContainer<TYPE> &pattern);
+aghTree(const aghContainer<TYPE> &pattern);
 
 /**
  * \brief destruktor
@@ -86,46 +87,35 @@ bool remove(int _index);
 
 
 };
-/*
+
 template <typename TYPE>
 aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
 {
 	*this = pattern;
 }
-*/
+
 
 
 template <typename TYPE>
-aghBranch<TYPE>* aghTree<TYPE>::go2pos(int _index, aghBranch<TYPE> *_ptr ) const
+aghBranch<TYPE>* aghTree<TYPE>::go2pos(int& _index, aghBranch<TYPE> *_ptr ) const
 {//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
 
-std::cout<<"g2p "<< _index<< " \n";
+	
+	aghBranch<TYPE> *_tptr;
+	
+		if(_ptr->get_next('l') != NULL && _index > -1)
+			_tptr = go2pos(_index, _ptr->get_next('l'));
 
-if(0 == _index) return _ptr;
-else
-{   
-    std::cout<<"left:"<<_ptr->get_next('l')<<"  right:"<<_ptr->get_next('r')<<"\n";
-    if(_ptr->get_next('l') != NULL) 
-    { //elsify popsuly by!
-        
-        _ptr=go2pos(--_index, _ptr->get_next('l'));
-    }
-    std::cout<<"gonna check...\n";
-    
-    if(_ptr->get_next('r') != NULL)
-    {
-        std::cout<<"R!";
-       _ptr=go2pos(--_index, _ptr->get_next('r'));
-    }
-    if(_ptr->get_next('r') == NULL && _ptr->get_next('l') == NULL) 
-        return _ptr;
+			_index--;
+
+		if(_index == -1 )
+			return _ptr;
+			
+		if(_ptr->get_next('r') != NULL && _index > -1)
+			_tptr = go2pos(_index, _ptr->get_next('r'));
+	
+		return _tptr;
 }
-
-return _ptr;
-}
-
-
-
 
 //----------------------------------------
 
@@ -203,8 +193,9 @@ return true;
 template<typename TYPE>
 TYPE& aghTree<TYPE>::at(int i) const
 {
+	//i++;
 //if(i>= this->size() || i<0) throw aghException("Wrong index for at()!");
-if(i<0 || i>= this->size() ) throw -1; //tymczasowe
+if(i<0 || i >= this->size() ) throw -1; //tymczasowe
 
 return go2pos(i,root)->get_data();
 }
