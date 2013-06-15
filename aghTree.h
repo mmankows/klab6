@@ -27,8 +27,8 @@ aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
  * \return wskaznik do szukanego wezla
 */
 aghBranch<TYPE>* LVR(int index=-1); 
-				   
-	
+
+
 	public:
 
 /**
@@ -44,10 +44,7 @@ aghTree(const aghContainer<TYPE> &pattern);
 /**
  * \brief destruktor
  */
-/*~aghTree() { if(!(this->isEmpty()) ) this->clear(); 
-root = NULL; 
-tree_size=0; 
-}*/
+~aghTree() { this->clear(); root = NULL; }
 
 
 /**
