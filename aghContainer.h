@@ -176,7 +176,7 @@ template <typename TYPE>
 aghContainer<TYPE>& aghContainer<TYPE>::operator=(const aghContainer<TYPE>  &right)
 {
 	
-	if( this != &right );
+	if( this != &right )
 		{
 		if (!( this->isEmpty() ) ) this->clear();	//wyczyszczednie kontenera
 		for(int i=0; this->size() < right.size(); i++)
