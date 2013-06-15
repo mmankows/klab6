@@ -74,7 +74,9 @@ bool aghContainer<TYPE>::isEmpty()
 template <typename TYPE>
 int aghContainer<TYPE>::indexOf(TYPE const& _value, int _from) const
 {
-	for(int i=_from; i < this->size(); i++)
+	if (_from < 0) return -1;	//lub rozwiazanie, ze _from<0, to wtedy from=0
+	
+	for(int i =_from; i < this->size(); i++)
 		if ( this->at(i) == _value ) return i;
 	
 	return -1;
@@ -85,10 +87,8 @@ int aghContainer<TYPE>::indexOf(TYPE const& _value, int _from) const
 template <typename TYPE>
 bool aghContainer<TYPE>::contains(TYPE const& _value, int _from) const
 {
-	for(int i=_from; i < this->size(); i++)
-		if ( this->at(i) == _value ) return true;	//przeszukiwanie, przy pierwszym znalezionym konczy
-
-	return false;
+	if ( this->indexOf(_value, _from) == -1 ) return false;
+	else return true;
 }
 
 //----------------------------------------------------------------------
