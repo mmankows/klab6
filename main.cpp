@@ -13,13 +13,12 @@ b.set_data(-10);
 c.set_data(34);
 
 
-tr.append(4);
-tr.append(5);
-tr.append(2);
-tr.append(3);
-tr.append(1);
-;
-tr.append(6);
+tr.append(4); std::cout<<"4\n";
+tr.append(5); std::cout<<"5\n";
+tr.append(2); std::cout<<"2\n";
+tr.append(3); std::cout<<"3\n";
+tr.append(1); std::cout<<"1\n";
+tr.append(6); std::cout<<"6\n";
 
 std::cout<< tr.at(3) <<"\n";
 std::cout<< tr.at(1) << std::endl;;
