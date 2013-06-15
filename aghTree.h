@@ -96,31 +96,27 @@ template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::go2pos(int _index, aghBranch<TYPE> *_ptr ) const
 {//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
 
-static int  current;
-std::cout<<"g2p "<<current<<" \n";
-if(_ptr==root) current = 0; //zerowanie pola statyczngo,dla kazdego
-                            //jawnegego uruchomienia funkcji przez usera
+std::cout<<"g2p "<< _index<< " \n";
 
-if(current == _index) return _ptr;
+if(0 == _index) return _ptr;
 else
-{
+{   
+    std::cout<<"left:"<<_ptr->get_next('l')<<"  right:"<<_ptr->get_next('r')<<"\n";
     if(_ptr->get_next('l') != NULL) 
     { //elsify popsuly by!
-    std::cout<<"L!";
-    current++;
-    _ptr=go2pos(_index, _ptr->get_next('l'));
+        
+        _ptr=go2pos(--_index, _ptr->get_next('l'));
     }
+    std::cout<<"gonna check...\n";
+    
     if(_ptr->get_next('r') != NULL)
     {
-
-    std::cout<<"R!";
-    current++;
-    _ptr=go2pos(_index, _ptr->get_next('r'));
+        std::cout<<"R!";
+       _ptr=go2pos(--_index, _ptr->get_next('r'));
     }
     if(_ptr->get_next('r') == NULL && _ptr->get_next('l') == NULL) 
         return _ptr;
 }
-
 
 return _ptr;
 }
@@ -168,7 +164,7 @@ this->tree_size++;
 
 if(root!=NULL) 
     {
-    if(_val>= root->get_data()) S='r';
+    if( _val >= root->get_data() ) S='r';
     else S='l';
     }
 else
@@ -180,15 +176,18 @@ return true;
 
 while(tptr->get_next(S) != NULL)
 {
-if(_val >= tptr->get_data() && tptr->get_next('r')!=NULL )
-    S='r';
-else if(_val < tptr->get_data() && tptr->get_next('l')!=NULL)
-    S='l';
 
+if(_val >= tptr->get_data()  )
+    S='r';
+else
+    S='l';
 tptr=tptr->get_next(S);
 }
 
 
+if(_val >= tptr->get_data() ) S='r';
+else S='l';
+std::cout<<"tworze " << S <<" Wezel!\n";
 tptr->set_next(S, new aghBranch<TYPE>() );
 tptr->get_next(S)->set_data(_val);
 
