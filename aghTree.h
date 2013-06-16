@@ -18,15 +18,7 @@ aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 aghBranch<TYPE>* find_successor(aghBranch<TYPE>* node);
 aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
-//< funkcja zwracajaca wezel na danej pozycjii
-//niech bedzie lvr
 
-/**
- * \brief metoda przeszukujaca drzewo az do znalezienia szukanego indexu
- * \param index kiedy ma sie zatrzymac, jesli -1 to przeszukuje do konca
- * \return wskaznik do szukanego wezla
-*/
-aghBranch<TYPE>* LVR(int index=-1); 
 
 
 	public:
@@ -44,7 +36,7 @@ aghTree(const aghContainer<TYPE> &pattern);
 /**
  * \brief destruktor
  */
-//~aghTree() { this->clear(); root = NULL; }
+~aghTree() { this->clear(); root = NULL; }
 
 
 /**
@@ -88,6 +80,7 @@ bool remove(int _index);
 };
 
 
+//----------------------------------------------------------------------
 
 template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son)
@@ -121,11 +114,12 @@ while(tptr->get_next(S) != NULL)
     tptr=tptr->get_next(S);
     }
 
-
-
 }
 
 //---------------------------------------------------------
+
+
+
 
 
 template <typename TYPE>
@@ -227,9 +221,6 @@ return true;
 
 
 
-//std::cout<<"usuwam:" << delnode->get_data() << " ";
-//std::cout<<" sukcesor:" << find_succesor(delnode)->get_data() <<"\n";
-
 
 }
 
@@ -238,6 +229,8 @@ return true;
 template<typename TYPE>
 bool aghTree<TYPE>::insert(int i, TYPE const &_val)
 {
+if(i<0 || i>= this->size()) throw aghException(-1,"insert(): wrong index!");
+    
 aghBranch<TYPE>* tptr=this->root;
 char S;
 this->tree_size++;
@@ -267,7 +260,6 @@ tptr=tptr->get_next(S);
 
 if(_val >= tptr->get_data() ) S='r';
 else S='l';
-std::cout<<"tworze " << S <<" Wezel!\n";
 tptr->set_next(S, new aghBranch<TYPE>() );
 tptr->get_next(S)->set_data(_val);
 
