@@ -33,6 +33,8 @@ aghTree(void): tree_size(0), root(NULL) {}
  * \brief konstruktor kopiujacy
  */
 aghTree(const aghTree<TYPE> &pattern);
+aghTree(const aghContainer<TYPE> &pattern);
+
 
 /**
  * \brief destruktor
@@ -85,6 +87,16 @@ template <typename TYPE>
 aghTree<TYPE>::aghTree(const aghTree<TYPE> &pattern)
 {
 	this->root=NULL;
+	this->tree_size=0;
+	for (int i=0; i < pattern.size(); i++)
+			this->append( pattern.at(i) );
+}
+
+template <typename TYPE>
+aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
+{
+	this->root=NULL;
+	this->tree_size=0;
 	for (int i=0; i < pattern.size(); i++)
 			this->append( pattern.at(i) );
 }
@@ -96,7 +108,7 @@ aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son)
  //przy uzyciu klucz syna, podazamy sciazka jakbysmy go wstawiali
 if(son==NULL) throw aghException(-1,"paernt() : son==NULL!");
 
-std::cout<<"!!\n";
+//std::cout<<"!!\n";
 
 
 aghBranch<TYPE> *tptr = this->root;
@@ -251,12 +263,13 @@ return true;
 
 while(tptr->get_next(S) != NULL)
 {
+tptr=tptr->get_next(S);
 
 if(_val >= tptr->get_data()  )
     S='r';
 else
     S='l';
-tptr=tptr->get_next(S);
+
 }
 
 

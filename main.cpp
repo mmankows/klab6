@@ -20,7 +20,7 @@ tr.append(2); std::cout<<"wrzucam 2\n";
 tr.append(3); std::cout<<"wrzucam 3\n";
 
 tr.append(6); std::cout<<"wrzucam 6\n";
-tr.append(14); std::cout<<"41\n";
+tr.append(14); std::cout<<"14\n";
 tr.append(1); std::cout<<"1\n";
 tr.append(9); std::cout<<"9\n";
 
@@ -45,10 +45,10 @@ ptr = root->get_next('l');
 std::cout<< root->get_next('r')->get_data();
 ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
-cout << "KONIEC\n\n\n\n";
 cout <<tr<<endl;
 aghTree<int> tr2=tr;
-//cout<<"[1]   "<<tr<<endl<<"size "<<tr.size()<<endl<<endl<<endl;
+cout<<"[1]   "<<tr2<<endl<<"size "<<tr2.size()<<endl<<endl<<endl;
+cout << "KONIEC\n\n\n\n";
 //tr.clear();
 //tr2.insert(0,100);
 //tr2.remove(1);
