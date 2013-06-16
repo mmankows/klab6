@@ -19,7 +19,6 @@ aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 aghBranch<TYPE>* find_successor(aghBranch<TYPE>* node);
 aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
-aghBranch<TYPE>* vlr(int& _index, aghBranch<TYPE> *_ptr ) const;
 
 public:
 
@@ -27,7 +26,7 @@ public:
 /**
  * \brief konstruktor domyslny
  */	
-aghTree(void): tree_size(0), root(NULL) {}
+aghTree(): tree_size(0), root(NULL) {}
 
 /**
  * \brief konstruktor kopiujacy
@@ -83,6 +82,7 @@ bool remove(int _index);
 };
 
 //----------------------------------------------------------------------
+
 template <typename TYPE>
 aghTree<TYPE>::aghTree(const aghTree<TYPE> &pattern)
 {
@@ -100,6 +100,7 @@ aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
 	for (int i=0; i < pattern.size(); i++)
 			this->append( pattern.at(i) );
 }
+
 //----------------------------------------------------------------------
 
 template <typename TYPE>
@@ -136,7 +137,7 @@ while(tptr->get_next(S) != NULL)
 
 }
 
-//---------------------------------------------------------
+//----------------------------------------------------------------------
 
 template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::go2pos(int& _index, aghBranch<TYPE> *_ptr ) const
@@ -160,7 +161,8 @@ if(_ptr == NULL) throw aghException(2,"go2pos(): can't start from NULL!");
 		return _tptr;
 }
 
-//----------------------------------------
+//----------------------------------------------------------------------
+
 template<typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::find_successor(aghBranch<TYPE>* node)
 {
@@ -174,7 +176,7 @@ char S;
 for(int i=0; ; i++)
 {
 int k=i;    
-aghBranch<TYPE> *tptr = vlr(k,node);
+aghBranch<TYPE> *tptr = go2pos(k,node);
 TYPE temp = tptr->get_data();
 
 if(tptr->get_next('r')==tptr->get_next('l'))
@@ -281,7 +283,7 @@ tptr->get_next(S)->set_data(_val);
 return true;
 }
 
-
+//----------------------------------------------------------------------
 
 
 template<typename TYPE>
@@ -291,54 +293,22 @@ TYPE& aghTree<TYPE>::at(int i) const
 if(i>= this->size() || i<0) throw aghException(-1,"at(): wrong index!");
 //if(i<0 || i >= this->size() ) throw -1; //tymczasowe
 
-return vlr(i,root)->get_data();
+return go2pos(i,root)->get_data();
 }
 
-
+//----------------------------------------------------------------------
 
 template <typename TYPE>
-aghTree<TYPE>& aghTree<TYPE>::operator=(const aghTree<TYPE>& pattern)
+aghTree<TYPE>& aghTree<TYPE>::operator=(const aghTree<TYPE>& right)
 {
-*this=aghContainer<TYPE>::operator=(pattern);
+if( &right == this ); //sprawdza czy nie przypisujemy a=a,zeby nie tracic danych
+else
+	{
+	if(!(this->isEmpty())) this->clear();
+	for(int i=0; this->size()<right.size(); i++)
+		this->append(right[i]);	
+	} 
 return *this;
 }
-
-//--------------------------------------------------------
-template <typename TYPE>
-aghBranch<TYPE>* aghTree<TYPE>::vlr(int& _index, aghBranch<TYPE> *_ptr ) const
-{//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
- //funkcja przechodzi wiercholki, gdy przejdzie odpowidnia ilosc
- //zwroci _ptr != NULL co bedzie sygnalem do opuszczania
- //kolejnych poziomow rekurencji
- //wartosc przyjmowana przez ref, by uniknac zmiennej static
-
-
-if(0 == _index) return _ptr;
-else
-{   
-     // std::cout<<"^^"<<_ptr->get_data()<<"\n";
-   
-    if( _ptr->get_next('l')!=NULL) 
-    { //elsify popsuly by!
-        aghBranch<TYPE> *tptr = vlr(--_index, _ptr->get_next('l'));
-        if(tptr!=NULL) _ptr = tptr;
-    }
-
-    if(_index==0) return _ptr; //musi byc
-
-    if( _ptr->get_next('r')!=NULL)
-    {
-        aghBranch<TYPE> *tptr = vlr(--_index, _ptr->get_next('r'));
-        if(tptr!=NULL) _ptr= tptr;
-    }
-   
-}
-
-if(_index==0) return _ptr;
-else return NULL;
-
-}
-
-
 
 #endif

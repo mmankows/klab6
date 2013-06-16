@@ -46,8 +46,11 @@ std::cout<< root->get_next('r')->get_data();
 ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
 cout <<tr<<endl;
-aghTree<int> tr2=tr;
-cout<<"[1]   "<<tr2<<endl<<"size "<<tr2.size()<<endl<<endl<<endl;
+aghTree<int> tr2;
+//cout<<"[1]   "<<tr2<<endl<<"size "<<tr2.size()<<endl<<endl<<endl;
+tr2=tr;
+if (tr2==tr)
+cout << "tr2 tr" <<endl;
 cout << "KONIEC\n\n\n\n";
 //tr.clear();
 //tr2.insert(0,100);
@@ -56,6 +59,4 @@ cout << "KONIEC\n\n\n\n";
 //cout<<"[2]   "<<tr2<<endl<<tr2.size()<<endl;
 //cout<<" 2  "<<tr2<<endl<<endl;
 //int i=0;
-//cout << tr2.root <<endl;
-//cout << tr.root <<endl;
 }

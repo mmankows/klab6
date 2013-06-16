@@ -29,7 +29,7 @@ int main(void)
     bool t2 = c2->size() == 3;
     int ttab2[] = {2, 3, 5};
     for(int i=0;i<3;i++)
-        t2 = t2 && (ttab2[i] == c2->at(i));
+     {   t2 = t2 && (ttab2[i] == c2->at(i)); cout << *c2 <<endl;}
     showTestResult(2, t2);
 
     // 3rd test - odwolania
@@ -84,7 +84,7 @@ int main(void)
     // 9th test - metoda contains
     showTestResult(9, !c2->contains(-6));
 
-/*
+
     // 10th test - sortowanie
     c1->clear();
     bool t10 = (c1->size() == 0) && (c2->size() == 8);
@@ -100,7 +100,7 @@ int main(void)
     for(int i=0;i<11;i++)
         t10 = t10 && (c1->at(i) == ttab10_2[i]);
     showTestResult(10, t10);
-*/
+
     // 11th test - dzialanie operatora przypisania
     a.at(0) = *c1;
     showTestResult(11, a.at(0) == *c2);
