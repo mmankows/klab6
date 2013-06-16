@@ -164,14 +164,11 @@ template<typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::find_succesor(aghBranch<TYPE>* node)
 {
 
-std::cout<<"succesor\n";
-if(node==NULL )  throw -1;
+if(node==NULL || node->get_next('l') == node->get_next('r') )  throw -1;
 //niepprawy wezel, lub wezel bez obu nastepnikow
 TYPE ndatal = node->get_next('l')->get_data(); 
 TYPE ndatar = node->get_next('r')->get_data();
 char S;
-
-std::cout<<"=========\n";
 
 for(int i=0; ; i++)
 {
@@ -179,11 +176,9 @@ int k=i;
 aghBranch<TYPE> *tptr = go2pos(k,node);
 TYPE temp = tptr->get_data();
 
-if(tptr->get_next('r')==NULL && tptr->get_next('l')==NULL)
+if(tptr->get_next('r')==tptr->get_next('l'))
     {
-        std::cout<<"&&&&&&&&\n";
         if(temp> ndatal && temp<= ndatar )
-            std::cout<<"tptr:"<<tptr->get_data()<<" \n";
             return tptr;
     }
 
@@ -201,7 +196,7 @@ bool aghTree<TYPE>::remove(int _index)
 if(_index <0 || _index>=this->size() ) return false;
 
 aghBranch<TYPE> *y,*x,*delnode = go2pos(_index,root), *px, *py;
-/*
+
 if(delnode->get_next('l') != NULL || delnode->get_next('r')!=NULL)
     y=delnode;
 else
@@ -231,9 +226,9 @@ tree_size--;
 return true;
 
 
-*/
-std::cout<<"usuwam:" << delnode->get_data() << " ";
-std::cout<<" sukcesor:" << find_succesor(delnode)->get_data() <<"\n";
+
+//std::cout<<"usuwam:" << delnode->get_data() << " ";
+//std::cout<<" sukcesor:" << find_succesor(delnode)->get_data() <<"\n";
 
 
 }

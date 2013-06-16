@@ -38,8 +38,7 @@ root->set_next('l',&b);
 root->set_next('r',&c);
 
  tr.remove(1);
- tr.remove(3);
- tr.remove(7);
+ 
 
 std::cout<<"\n\n"<<tr;
 
