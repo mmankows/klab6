@@ -37,7 +37,10 @@ root = &a;
 root->set_next('l',&b);
 root->set_next('r',&c);
 
-for(int i = 0; i<tr.size(); ++i) tr.remove(i);
+for(int i=0 ; i<tr.size()-1; ++i) tr.remove(i);
+
+std::cout<<"\n\n"<<tr;
+
 
 ptr = root->get_next('l');
 std::cout<< root->get_next('r')->get_data();

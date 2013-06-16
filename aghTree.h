@@ -17,8 +17,8 @@ class aghTree : public aghContainer<TYPE> {
 int tree_size;   //< wielkosc drzewa
 aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
-
-aghBranch<TYPE>* parent(int pos);
+aghBranch<TYPE>* find_succesor(aghBranch<TYPE>* node);
+aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
 //< funkcja zwracajaca wezel na danej pozycjii
 //niech bedzie lvr
@@ -92,12 +92,15 @@ bool remove(int _index);
 
 
 template <typename TYPE>
-aghBranch<TYPE>* aghTree<TYPE>::parent(int pos)
+aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son)
 {//szukanie patenta podobnie do inserta
  //przy uzyciu klucz syna, podazamy sciazka jakbysmy go wstawiali
-if(pos<0 || pos>=this->size()) throw -1;
+if(son==NULL) throw -1;
 
-aghBranch<TYPE> *tptr = this->root, *son = go2pos(pos,root);
+std::cout<<"!!\n";
+
+
+aghBranch<TYPE> *tptr = this->root;
 TYPE _val = son->get_data();
 char S;
 if(son==root) return NULL;
@@ -157,36 +160,112 @@ aghBranch<TYPE>* aghTree<TYPE>::go2pos(int& _index, aghBranch<TYPE> *_ptr ) cons
 }
 
 //----------------------------------------
+template<typename TYPE>
+aghBranch<TYPE>* aghTree<TYPE>::find_succesor(aghBranch<TYPE>* node)
+{
+
+if(node==NULL )  throw -1;
+//niepprawy wezel, lub wezel bez obu nastepnikow
+
+aghBranch<TYPE> *tptr = node;
+bool isleft= (parent(node)->get_next('l') == node);
+TYPE ndatal = node->get_next('l')->get_data(); 
+TYPE ndatar = node->get_next('r')->get_data();
+char S;
+
+/*
+    do
+    {
+    TYPE temp = tptr->get_next('r')->get_data();
+    if(isleft)
+        {
+        std::cout<<"isleft!\n";
+        if(temp > ndatal && temp <= ndatar  )
+        S='r';
+        else S='l';
+        }
+    else
+        {
+        std::cout<<"isright!\n";
+        if(temp <= ndatal && temp> ndatar)
+        S='r';
+        else S='l';
+        }
+    tptr=tptr->get_next(S);
+    }while(tptr->get_next(S) != NULL);
+
+*/
+
+for(int i=0; ; i++)
+{
+tptr = go2pos(i,node);
+TYPE temp = tptr->get_data();
+
+if(tptr->get_next('r')==NULL && tptr->get_next('l')==NULL)
+    {
+    if(isleft)
+        {
+        if(temp> ndatal && temp>= ndatar )
+            return tptr;
+        }
+    else
+        {
+        if(temp> ndatal && temp >= ndatar)
+            return tptr;
+        }
+
+    }
+
+}
+
+return tptr;
+
+}
+
+
 
 template<typename TYPE>
 bool aghTree<TYPE>::remove(int _index)
 {
-    /*
-char L = 'l', R='r';
 
-aghBranch<TYPE> *pptr, *bptr;
+if(_index <0 || _index>=this->size() ) return false;
 
-bptr = go2pos(_index, root);
+aghBranch<TYPE> *y,*x,*delnode = go2pos(_index,root), *px, *py;
 
-if(bptr->get_next(L) == NULL && bptr->get_next(R) == NULL)
-{ //jesli nie ma synow, wczesniejszy ustaw na null(lewy bo LVR)
- 
+if(delnode->get_next('l') != NULL || delnode->get_next('r')!=NULL)
+    y=delnode;
+else
+    y=find_succesor(delnode);
 
-   go2pos(_index-1,root)->set_next(L,NULL);
-   delete bptr;
-}
-else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
-{
-    
-    
+/*
 
-}    
+if(y->get_next('l') != NULL)
+    x=y->get_next('l');
+else
+    x=y->get_next('r');
+
+if(x!=NULL)
+    px = parent(y);
+
+if(parent(y)==NULL)
+    this->root =x;
+else
+    if(y==parent(y)->get_next('l') )
+        parent(y)->set_next('l',x);
+    else
+        parent(y)->set_next('r',x);
+if( y != delnode)
+    delnode->set_data(y->get_data());
+
+tree_size--;
+return true;
 
 */
-int temp = _index;
-aghBranch<TYPE>*k= parent(temp);
-if(k!=NULL) std::cout<<temp<< " rodzic: "<< k->get_data() <<'\n';
-else std::cout<< "root rodzic null\n";
+
+std::cout<<"usuwam:" << delnode->get_data() << " ";
+std::cout<<" sukcesor:" << y->get_data() <<"\n";
+
+
 }
 
 //-----------------------------------------------------------
