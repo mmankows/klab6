@@ -1,7 +1,7 @@
 #ifndef AGHTREE_H
 	#define AGHTREE_H
 	#include "aghContainer.h"
-
+    #include "aghBranch.h"
 
 template <typename TYPE>
 class aghTree : public aghContainer<TYPE> {
@@ -18,6 +18,7 @@ int tree_size;   //< wielkosc drzewa
 aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
 
+aghBranch<TYPE>* parent(aghBranch<TYPE>* son, int pos);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
 //< funkcja zwracajaca wezel na danej pozycjii
 //niech bedzie lvr
@@ -88,6 +89,31 @@ bool remove(int _index);
 
 };
 
+
+
+template <typename TYPE>
+aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son,int pos)
+{
+aghBranch<TYPE>* ptr;
+
+
+if(son == this->root) return NULL;
+else
+{
+int temp = pos-1;
+ptr=go2pos(temp,root);
+temp=pos+1;
+if(ptr->get_next('l') == son || ptr->get_next('r') ==son);
+else if(temp+1<this->size()) ptr=go2pos(temp,root);
+}
+return ptr;
+
+
+}
+
+//---------------------------------------------------------
+
+
 template <typename TYPE>
 aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
 {
@@ -144,6 +170,8 @@ else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
 }    
 
 */
+std::cout<< "rodzic:"<<parent(go2pos(_index,root),_index)->get_data()<<'\n';
+
 }
 
 //-----------------------------------------------------------
