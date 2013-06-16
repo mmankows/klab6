@@ -23,9 +23,9 @@ tr.append(1); std::cout<<"1\n";
 tr.append(6); std::cout<<"6\n";
 
 
-std::cout<< tr.at(3) <<"\n";
-std::cout<< tr.at(1) << std::endl;;
-std::cout<< tr.at(2) << std::endl;
+std::cout<< tr.at(2) <<"\n";
+std::cout<< tr.at(0) << std::endl;;
+std::cout<< tr.at(1) << std::endl;
 
 std::cout<<"\n"<<tr;
 
