@@ -18,6 +18,7 @@ aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 aghBranch<TYPE>* find_successor(aghBranch<TYPE>* node);
 aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
+aghBranch<TYPE>* vlr(int& _index, aghBranch<TYPE> *_ptr ) const;
 
 
 
@@ -286,6 +287,42 @@ aghTree<TYPE>& aghTree<TYPE>::operator=(const aghTree<TYPE>& pattern)
 {
 *this=aghContainer<TYPE>::operator=(pattern);
 return *this;
+}
+
+//--------------------------------------------------------
+template <typename TYPE>
+aghBranch<TYPE>* aghTree<TYPE>::vlr(int& _index, aghBranch<TYPE> *_ptr ) const
+{//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
+ //funkcja przechodzi wiercholki, gdy przejdzie odpowidnia ilosc
+ //zwroci _ptr != NULL co bedzie sygnalem do opuszczania
+ //kolejnych poziomow rekurencji
+ //wartosc przyjmowana przez ref, by uniknac zmiennej static
+
+
+if(0 == _index) return _ptr;
+else
+{   
+      std::cout<<"^^"<<_ptr->get_data()<<"\n";
+   
+    if( _ptr->get_next('l')!=NULL) 
+    { //elsify popsuly by!
+        aghBranch<TYPE> *tptr = vlr(--_index, _ptr->get_next('l'));
+        if(tptr!=NULL) _ptr = tptr;
+    }
+
+    if(_index==0) return _ptr; //musi byc
+
+    if( _ptr->get_next('r')!=NULL)
+    {
+        aghBranch<TYPE> *tptr = vlr(--_index, _ptr->get_next('r'));
+        if(tptr!=NULL) _ptr= tptr;
+    }
+   
+}
+
+if(_index==0) return _ptr;
+else return NULL;
+
 }
 
 
