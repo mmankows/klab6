@@ -197,7 +197,7 @@ if(_index <0 || _index>=this->size() ) return false;
 
 aghBranch<TYPE> *y,*x,*delnode = go2pos(_index,root), *px, *py;
 
-if(delnode->get_next('l') != NULL || delnode->get_next('r')!=NULL)
+if(delnode->get_next('l') == NULL || delnode->get_next('r')==NULL)
     y=delnode;
 else
     y=find_succesor(delnode);
@@ -223,6 +223,7 @@ if( y != delnode)
     delnode->set_data(y->get_data());
 
 tree_size--;
+delete delnode;
 return true;
 
 
