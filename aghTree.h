@@ -84,13 +84,9 @@ bool remove(int _index);
 template <typename TYPE>
 aghTree<TYPE>::aghTree(const aghTree<TYPE> &pattern)
 {
-	cout << "K K!"<<endl;
 	this->root=NULL;
-	for (int i=0; i < pattern.size()-2; i++)
-	{
-		cout << pattern.at(i)<<endl;
-			this->insert (1, pattern.at(i) );
-	} this->append(6);
+	for (int i=0; i < pattern.size(); i++)
+			this->append( pattern.at(i) );
 }
 //----------------------------------------------------------------------
 
@@ -236,9 +232,7 @@ return true;
 
 template<typename TYPE>
 bool aghTree<TYPE>::insert(int i, TYPE const &_val)
-{
-//if(i<0 || i>= this->size()) throw aghException(-1,"insert(): wrong index!"); po co? index mial byc pominiety
-    
+{    
 aghBranch<TYPE>* tptr=this->root;
 char S;
 this->tree_size++;

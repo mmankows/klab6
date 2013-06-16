@@ -12,17 +12,17 @@ a.set_data(100);
 b.set_data(-10);
 c.set_data(34);
 
-tr.append(8); std::cout <<"8\n";
+tr.append(8); std::cout <<"wrzucam 8\n";
 
-tr.append(4); std::cout<<"4\n";
-tr.append(5); std::cout<<"5\n";
+tr.append(4); std::cout<<"wrzucam 4\n";
+tr.append(2); std::cout<<"wrzucam 2\n";
 
-tr.append(14); std::cout<<"14\n";
+tr.append(3); std::cout<<"wrzucam 3\n";
 
-tr.append(2); std::cout<<"2\n";
-tr.append(3); std::cout<<"3\n";
+tr.append(6); std::cout<<"wrzucam 6\n";
+tr.append(14); std::cout<<"41\n";
 tr.append(1); std::cout<<"1\n";
-tr.append(6); std::cout<<"6\n";
+tr.append(9); std::cout<<"9\n";
 
 
 std::cout<< tr.at(2) <<"\n";
@@ -47,7 +47,6 @@ ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
 cout << "KONIEC\n\n\n\n";
 cout <<tr<<endl;
-//cout << tr.at(1);
 aghTree<int> tr2=tr;
 //cout<<"[1]   "<<tr<<endl<<"size "<<tr.size()<<endl<<endl<<endl;
 //tr.clear();
