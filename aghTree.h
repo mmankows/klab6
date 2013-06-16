@@ -18,7 +18,7 @@ int tree_size;   //< wielkosc drzewa
 aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
 
-aghBranch<TYPE>* parent(aghBranch<TYPE>* son, int pos);
+aghBranch<TYPE>* parent(int pos);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
 //< funkcja zwracajaca wezel na danej pozycjii
 //niech bedzie lvr
@@ -92,21 +92,34 @@ bool remove(int _index);
 
 
 template <typename TYPE>
-aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son,int pos)
-{
-aghBranch<TYPE>* ptr;
+aghBranch<TYPE>* aghTree<TYPE>::parent(int pos)
+{//szukanie patenta podobnie do inserta
+ //przy uzyciu klucz syna, podazamy sciazka jakbysmy go wstawiali
+if(pos<0 || pos>=this->size()) throw -1;
 
-
-if(son == this->root) return NULL;
+aghBranch<TYPE> *tptr = this->root, *son = go2pos(pos,root);
+TYPE _val = son->get_data();
+char S;
+if(son==root) return NULL;
 else
 {
-int temp = pos-1;
-ptr=go2pos(temp,root);
-temp=pos+1;
-if(ptr->get_next('l') == son || ptr->get_next('r') ==son);
-else if(temp+1<this->size()) ptr=go2pos(temp,root);
+if(_val >= tptr->get_data()) S='r';
+else S='l';
 }
-return ptr;
+
+
+while(tptr->get_next(S) != NULL)
+    {
+    if(_val >= tptr->get_data()  )
+        {
+        S='r';
+        }
+    else
+        S='l';
+    if(tptr->get_next(S) == son) return tptr;    
+    tptr=tptr->get_next(S);
+    }
+
 
 
 }
@@ -170,8 +183,10 @@ else if(bptr->get_next(L) != NULL && bptr->get_next(R) != NULL)
 }    
 
 */
-std::cout<< "rodzic:"<<parent(go2pos(_index,root),_index)->get_data()<<'\n';
-
+int temp = _index;
+aghBranch<TYPE>*k= parent(temp);
+if(k!=NULL) std::cout<<temp<< " rodzic: "<< k->get_data() <<'\n';
+else std::cout<< "root rodzic null\n";
 }
 
 //-----------------------------------------------------------
