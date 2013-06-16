@@ -92,7 +92,6 @@ int main(void)
     int ttab10_2[] = {-20, -10, -8, -5, -3, 1, 2, 7, 9, 12, 15};
     for(int i=0;i<9;i++)
         c1->append(ttab10_1[i]);
-        c1->append(-3);
     for(int i=0;i<11;i++)
         t10 = t10 && (c1->at(i) == ttab10_1[i]);
     *c2 = *c1;
