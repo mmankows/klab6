@@ -3,7 +3,7 @@
 int main()
 {
 aghBranch<int> a,b,c;
-aghTree<int> tr, tr2;
+aghTree<int> tr;
 aghBranch<int> *root,*ptr;
 
 
@@ -46,6 +46,17 @@ std::cout<< root->get_next('r')->get_data();
 ptr->set_data(-10000);
 std::cout<<"\n"<<ptr->get_data()<<"\n";
 cout << "KONIEC\n\n\n\n";
-//tr2 = tr; 
-
+cout <<tr<<endl;
+//cout << tr.at(1);
+aghTree<int> tr2=tr;
+//cout<<"[1]   "<<tr<<endl<<"size "<<tr.size()<<endl<<endl<<endl;
+//tr.clear();
+//tr2.insert(0,100);
+//tr2.remove(1);
+//tr2=tr;
+//cout<<"[2]   "<<tr2<<endl<<tr2.size()<<endl;
+//cout<<" 2  "<<tr2<<endl<<endl;
+//int i=0;
+//cout << tr2.root <<endl;
+//cout << tr.root <<endl;
 }

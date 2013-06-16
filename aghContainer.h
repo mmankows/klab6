@@ -175,12 +175,12 @@ ostream& operator<<(ostream& out, aghContainer<TYPE> const& right)
 template <typename TYPE>
 aghContainer<TYPE>& aghContainer<TYPE>::operator=(const aghContainer<TYPE>  &right)
 {
-	
-	if( this != &right )
+	if( this == &right );
+	else
 		{
 		if (!( this->isEmpty() ) ) this->clear();	//wyczyszczednie kontenera
-		for(int i=0; this->size() < right.size(); i++)
-			this->append(right[i]);		//dodawanie kolejno wartosci
+		for(int i=0; i < right.size(); i++)
+			this->append(right.at(i));		//dodawanie kolejno wartosci
 		}
 	return *this;
 }
