@@ -37,7 +37,9 @@ root = &a;
 root->set_next('l',&b);
 root->set_next('r',&c);
 
-for(int i=0 ; i<tr.size()-1; ++i) tr.remove(i);
+ tr.remove(1);
+ tr.remove(3);
+ tr.remove(7);
 
 std::cout<<"\n\n"<<tr;
 
