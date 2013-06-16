@@ -84,17 +84,17 @@ bool remove(int _index);
 
 template <typename TYPE>
 aghVector<TYPE>::aghVector(int _size)
-: amount(_size), capacity(_size+10)
+: amount(_size), capacity(_size+15)
 {
-this->tab  = new TYPE[_size+10];
+this->tab  = new TYPE[_size+15];
 if(this->tab == NULL) throw aghException(0,"Memory allocation error!");
 }
 //----------------------------------------------------------------------
 template <typename TYPE>
 aghVector<TYPE>::aghVector(const aghContainer<TYPE> &pattern)
-: amount(pattern.size() ), capacity(amount+10)
+: amount(pattern.size() ), capacity(amount+15)
 {
-this->tab = new TYPE [pattern.size()+10];
+this->tab = new TYPE [pattern.size()+15];
 if(this->tab == NULL) throw aghException(0,"Memory allocation error!");
 
 for(int i=0; i<pattern.size(); i++)
