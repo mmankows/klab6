@@ -166,59 +166,25 @@ aghBranch<TYPE>* aghTree<TYPE>::find_succesor(aghBranch<TYPE>* node)
 
 if(node==NULL )  throw -1;
 //niepprawy wezel, lub wezel bez obu nastepnikow
-
-aghBranch<TYPE> *tptr = node;
-bool isleft= (parent(node)->get_next('l') == node);
 TYPE ndatal = node->get_next('l')->get_data(); 
 TYPE ndatar = node->get_next('r')->get_data();
 char S;
 
-/*
-    do
-    {
-    TYPE temp = tptr->get_next('r')->get_data();
-    if(isleft)
-        {
-        std::cout<<"isleft!\n";
-        if(temp > ndatal && temp <= ndatar  )
-        S='r';
-        else S='l';
-        }
-    else
-        {
-        std::cout<<"isright!\n";
-        if(temp <= ndatal && temp> ndatar)
-        S='r';
-        else S='l';
-        }
-    tptr=tptr->get_next(S);
-    }while(tptr->get_next(S) != NULL);
-
-*/
 
 for(int i=0; ; i++)
 {
-tptr = go2pos(i,node);
+int k=i;    
+aghBranch<TYPE>*tptr = go2pos(k,node);
 TYPE temp = tptr->get_data();
 
 if(tptr->get_next('r')==NULL && tptr->get_next('l')==NULL)
     {
-    if(isleft)
-        {
-        if(temp> ndatal && temp>= ndatar )
+        if(temp> ndatal && temp<= ndatar )
             return tptr;
-        }
-    else
-        {
-        if(temp> ndatal && temp >= ndatar)
-            return tptr;
-        }
-
     }
 
 }
 
-return tptr;
 
 }
 
