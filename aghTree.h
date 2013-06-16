@@ -9,7 +9,7 @@ class aghTree : public aghContainer<TYPE> {
  * \brief klasa reprezentujaca drzewo bst
  */  
 
-	public:
+
 
 
 
@@ -21,7 +21,7 @@ aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
 aghBranch<TYPE>* vlr(int& _index, aghBranch<TYPE> *_ptr ) const;
 
-
+public:
 
 
 /**
