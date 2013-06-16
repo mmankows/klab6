@@ -1,6 +1,4 @@
-#include "aghBranch.h"
-#include "aghTree.h"
-
+#include "aghInclude.h"
 
 int main()
 {

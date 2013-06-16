@@ -1,7 +1,5 @@
 #ifndef AGHTREE_H
 	#define AGHTREE_H
-	#include "aghContainer.h"
-    #include "aghBranch.h"
 
 template <typename TYPE>
 class aghTree : public aghContainer<TYPE> {
@@ -17,7 +15,7 @@ class aghTree : public aghContainer<TYPE> {
 int tree_size;   //< wielkosc drzewa
 aghBranch<TYPE>* root; //< wskaznik na wezel - korzen
 
-aghBranch<TYPE>* find_succesor(aghBranch<TYPE>* node);
+aghBranch<TYPE>* find_successor(aghBranch<TYPE>* node);
 aghBranch<TYPE>* parent(aghBranch<TYPE>*);
 aghBranch<TYPE>* go2pos(int& _index,aghBranch<TYPE>* ) const; 
 //< funkcja zwracajaca wezel na danej pozycjii
@@ -93,9 +91,9 @@ bool remove(int _index);
 
 template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::parent(aghBranch<TYPE>* son)
-{//szukanie patenta podobnie do inserta
+{//szukanie parenta podobnie do metody insert
  //przy uzyciu klucz syna, podazamy sciazka jakbysmy go wstawiali
-if(son==NULL) throw -1;
+if(son==NULL) throw aghException(-1,"paernt() : son==NULL!");
 
 std::cout<<"!!\n";
 
@@ -141,7 +139,8 @@ aghTree<TYPE>::aghTree(const aghContainer<TYPE> &pattern)
 template <typename TYPE>
 aghBranch<TYPE>* aghTree<TYPE>::go2pos(int& _index, aghBranch<TYPE> *_ptr ) const
 {//ptr w pierwszym uruchomieniu zawsze ma wartosc root!
-
+if(_index <0 || _index>=this->size() ) throw aghException(-1,"go2pos(): wrong index!");
+if(_ptr == NULL) throw aghException(0,"go2pos(): can't start from NULL!");
 	
 	aghBranch<TYPE> *_tptr;
 	
@@ -161,10 +160,10 @@ aghBranch<TYPE>* aghTree<TYPE>::go2pos(int& _index, aghBranch<TYPE> *_ptr ) cons
 
 //----------------------------------------
 template<typename TYPE>
-aghBranch<TYPE>* aghTree<TYPE>::find_succesor(aghBranch<TYPE>* node)
+aghBranch<TYPE>* aghTree<TYPE>::find_successor(aghBranch<TYPE>* node)
 {
 
-if(node==NULL || node->get_next('l') == node->get_next('r') )  throw -1;
+if(node==NULL || node->get_next('l') == node->get_next('r') )  throw aghException(0,"find_successor(): wrong node!");
 //niepprawy wezel, lub wezel bez obu nastepnikow
 TYPE ndatal = node->get_next('l')->get_data(); 
 TYPE ndatar = node->get_next('r')->get_data();
@@ -200,7 +199,7 @@ aghBranch<TYPE> *y,*x,*delnode = go2pos(_index,root), *px, *py;
 if(delnode->get_next('l') == NULL || delnode->get_next('r')==NULL)
     y=delnode;
 else
-    y=find_succesor(delnode);
+    y=find_successor(delnode);
 
 
 
@@ -282,7 +281,7 @@ template<typename TYPE>
 TYPE& aghTree<TYPE>::at(int i) const
 {
 	//i++;
-//if(i>= this->size() || i<0) throw aghException("Wrong index for at()!");
+if(i>= this->size() || i<0) throw aghException(-1,"at(): wrong index!");
 if(i<0 || i >= this->size() ) throw -1; //tymczasowe
 
 return go2pos(i,root)->get_data();
