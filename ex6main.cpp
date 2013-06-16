@@ -90,8 +90,9 @@ int main(void)
     bool t10 = (c1->size() == 0) && (c2->size() == 8);
     int ttab10_1[] = {7, -5, 12, 15, 9, -10, -20, -8, 1, -3, 2};
     int ttab10_2[] = {-20, -10, -8, -5, -3, 1, 2, 7, 9, 12, 15};
-    for(int i=0;i<11;i++)
+    for(int i=0;i<9;i++)
         c1->append(ttab10_1[i]);
+        c1->append(-3);
     for(int i=0;i<11;i++)
         t10 = t10 && (c1->at(i) == ttab10_1[i]);
     *c2 = *c1;
